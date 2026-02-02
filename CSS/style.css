@@ -1,0 +1,79 @@
+﻿:root {
+    --side-bg: #050505;
+    --main-bg: #121212;
+    --toolbar: #1c1c1c;
+    --accent: #ff003c; /* Opera Red / Aether Cyan: wähle deine Farbe */
+    --text: #ffffff;
+}
+
+body.light-mode-active {
+    --side-bg: #f0f0f0;
+    --main-bg: #ffffff;
+    --toolbar: #e0e0e0;
+    --text: #000000;
+    --accent: #0078d7;
+}
+
+body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', sans-serif; background: var(--main-bg); color: var(--text); overflow: hidden; }
+
+#browser-ui { display: flex; height: 100vh; }
+
+/* Sidebar (Opera GX Style) */
+.sidebar {
+    width: 60px; background: var(--side-bg); display: flex; flex-direction: column;
+    align-items: center; padding: 15px 0; border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.brand { font-size: 24px; color: var(--accent); margin-bottom: 30px; }
+
+.icon {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; cursor: pointer; color: #888; font-size: 18px; transition: 0.3s;
+}
+
+.icon:hover, .icon.active { color: var(--accent); transform: scale(1.1); }
+
+.spacer { flex: 1; }
+
+/* Header & Adresszeile (Firefox Style) */
+.viewport { flex: 1; display: flex; flex-direction: column; }
+
+.browser-header {
+    background: var(--toolbar); padding: 8px 15px; border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.window-controls { display: flex; align-items: center; gap: 15px; }
+
+.nav-btns button {
+    background: none; border: none; color: var(--text); padding: 8px;
+    cursor: pointer; opacity: 0.7; transition: 0.2s;
+}
+
+.nav-btns button:hover { opacity: 1; color: var(--accent); }
+
+.address-bar {
+    flex: 1; background: rgba(0,0,0,0.2); border-radius: 4px; display: flex;
+    align-items: center; padding: 5px 12px; border: 1px solid rgba(255,255,255,0.1);
+}
+
+.address-bar i { font-size: 12px; color: #888; }
+
+#omnibox {
+    flex: 1; background: none; border: none; color: var(--text);
+    padding: 4px 10px; outline: none; font-size: 13px;
+}
+
+/* Theme Switcher */
+.theme-switch { margin-bottom: 20px; }
+.theme-switch input { display: none; }
+.theme-switch label {
+    width: 30px; height: 15px; background: #333; display: block;
+    border-radius: 10px; position: relative; cursor: pointer;
+}
+.theme-switch label::after {
+    content: ''; width: 11px; height: 11px; background: var(--accent);
+    position: absolute; top: 2px; left: 2px; border-radius: 50%; transition: 0.3s;
+}
+input:checked + label::after { left: 17px; }
+
+webview { flex: 1; width: 100%; height: 100%; background: #fff; }
