@@ -1,0 +1,23 @@
+﻿{
+  "name": "aetheros-browser",
+  "productName": "AetherOS",
+  "version": "1.1.0",
+  "description": "Next-Gen Gaming Browser",
+  "author": "Joel Zimmermann",
+  "main": "main.js",
+  "scripts": { "start": "electron .", "make": "electron-forge make" },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.2.0",
+    "@electron-forge/maker-squirrel": "^7.2.0",
+    "electron": "^28.2.0"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": { "executableName": "AetherOS" },
+      "makers": [{ "name": "@electron-forge/maker-squirrel", "config": { "authors": "Joel Zimmermann", "name": "aetheros_browser", "setupExe": "AetherOS-Setup.exe" } }]
+    }
+  }
+}
