@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherOS | Gaming Browser</title>
+    <style>
+        :root { --primary: #ff003c; --bg: #050505; --card: #0a0a0a; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        .container { text-align: center; z-index: 10; }
+        .glow { position: absolute; width: 300px; height: 300px; background: var(--primary); filter: blur(150px); opacity: 0.2; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        h1 { font-size: 80px; margin-bottom: 0; letter-spacing: -2px; background: linear-gradient(to bottom, #fff, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p { color: #888; font-size: 20px; margin-bottom: 40px; }
+        .btn { background: var(--primary); color: white; padding: 20px 50px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 24px; transition: 0.3s; box-shadow: 0 0 30px rgba(255, 0, 60, 0.4); display: inline-block; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 50px rgba(255, 0, 60, 0.6); }
+        .footer { position: absolute; bottom: 20px; color: #333; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+    <div class="container">
+        <h1>🧭 AETHER<span style="color:var(--primary)">OS</span></h1>
+        <p>Schneller. Sicherer. Ghost-Mode integriert.</p>
+        <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/latest/download/aetheros-browser-1.0.0-Setup.exe" class="btn">DOWNLOAD .EXE</a>
+    </div>
+    <div class="footer">© 2026 Joel Zimmermann - Built with Electron</div>
+</body>
+</html>

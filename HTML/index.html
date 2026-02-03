@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body class="dark-ui">
+    <div id="browser-ui">
+        <aside class="sidebar">
+            <div class="brand"><i class="fas fa-compass"></i></div>
+            <div class="nav-icons">
+                <div class="icon active" onclick="loadUrl('https://www.google.com')"><i class="fas fa-home"></i></div>
+                <div class="icon" onclick="loadUrl('https://discord.com')"><i class="fab fa-discord"></i></div>
+                <div class="icon ghost-trigger" onclick="launchGhost()"><i class="fas fa-user-secret"></i></div>
+            </div>
+        </aside>
+        <main class="viewport">
+            <header class="browser-header">
+                <div class="address-bar"><input type="text" id="omnibox" value="https://www.google.com"></div>
+            </header>
+            <webview id="wv" src="https://www.google.com" partition="persist:main"></webview>
+        </main>
+    </div>
+    <script src="../JS/main.js"></script>
+</body>
+</html>
