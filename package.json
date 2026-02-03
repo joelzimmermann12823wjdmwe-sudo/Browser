@@ -15,17 +15,14 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {
-        "icon": "./icon"
-      },
+      "packagerConfig": { "icon": "./icon" },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
             "name": "aetheros_browser",
             "authors": "Joel Zimmermann",
-            "description": "AetherOS Gaming Browser",
-            "setupIcon": "./icon.ico"
+            "description": "AetherOS Gaming Browser"
           }
         }
       ]
