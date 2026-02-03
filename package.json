@@ -28,9 +28,10 @@
     }
   },
   "dependencies": {
-    "electron-log": "^5.0.0",
+    "electron-log": "^5.4.3",
     "electron-squirrel-startup": "^1.0.1",
-    "update-electron-app": "^3.0.0"
+    "electron-updater": "^6.7.3",
+    "update-electron-app": "^3.1.2"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.0.0",
