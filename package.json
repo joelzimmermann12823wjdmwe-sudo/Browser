@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "AetherOS Gaming Browser",
   "main": "main.js",
-  "author": {
-    "name": "Joel Zimmermann"
-  },
+  "author": "Joel Zimmermann",
   "scripts": {
     "start": "electron .",
     "make": "electron-forge make"
