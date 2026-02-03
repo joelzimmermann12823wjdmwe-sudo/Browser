@@ -2,30 +2,10 @@
   "name": "aetheros-browser",
   "version": "1.0.0",
   "description": "AetherOS Gaming Browser",
-  "main": "main.js",
-  "author": "Joel Zimmermann",
+  "private": true,
   "scripts": {
-    "start": "electron .",
-    "make": "electron-forge make"
+    "start": "electron ."
   },
-  "devDependencies": {
-    "@electron-forge/cli": "^6.0.0",
-    "@electron-forge/maker-squirrel": "^6.0.0",
-    "electron": "latest"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": { "icon": "./icon" },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "aetheros_browser",
-            "authors": "Joel Zimmermann",
-            "description": "AetherOS Gaming Browser"
-          }
-        }
-      ]
-    }
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
