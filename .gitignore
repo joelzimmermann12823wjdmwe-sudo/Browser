@@ -1,0 +1,7 @@
+﻿node_modules/
+App/node_modules/
+out/
+App/out/
+*.exe
+*.nupkg
+*.zip
