@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        :root { --accent: #7d00ff; --bg: #030303; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        
+        .glass-card { 
+            background: rgba(20, 20, 20, 0.8); 
+            border: 1px solid var(--accent); 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 0 40px rgba(125,0,255,0.2); 
+            text-align: center;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h1 { font-size: 3.5rem; letter-spacing: 10px; margin: 0; color: white; text-shadow: 0 0 20px var(--accent); }
+        .version-badge { background: var(--accent); color: white; padding: 5px 15px; border-radius: 50px; font-size: 14px; font-weight: bold; }
+        
+        .info-box { text-align: left; margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; }
+        .info-box h3 { color: var(--accent); margin-bottom: 5px; }
+        .info-box p { color: #888; font-size: 14px; margin: 5px 0; }
+
+        .update-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .dot { height: 8px; width: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="glass-card">
+        <h1>AETHER OS</h1>
+        <span class="version-badge">VERSION 1.1.0 STABLE</span>
+        
+        <div class="info-box">
+            <h3><i class="dot"></i> NEU IN DIESEM UPDATE</h3>
+            <p>• Multi-Tab System (Firefox Style) aktiviert.</p>
+            <p>• GX-Engine mit RGB-Integration implementiert.</p>
+            <p>• Automatisches Update-System via GitHub Live.</p>
+            <br>
+            <h3><i class="dot"></i> SYSTEM-STATUS</h3>
+            <p>• Kern: Electron 28.0.0 | Engine: Chromium</p>
+            <p>• Status: Bereit für High-Performance Browsing</p>
+        </div>
+    </div>
+</body>
+</html>

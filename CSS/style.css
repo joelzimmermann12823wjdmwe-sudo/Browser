@@ -1,0 +1,12 @@
+﻿* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #050505; color: white; font-family: sans-serif; height: 100vh; overflow: hidden; }
+#browser-ui { display: flex; height: 100vh; }
+.sidebar { width: 70px; background: #0a0a0a; border-right: 1px solid #222; display: flex; flex-direction: column; align-items: center; padding-top: 20px; }
+.brand { color: #ff003c; font-size: 24px; margin-bottom: 30px; }
+.icon { color: #555; font-size: 20px; margin-bottom: 25px; cursor: pointer; transition: 0.3s; }
+.icon:hover { color: #ff003c; }
+.viewport { flex: 1; display: flex; flex-direction: column; }
+.browser-header { background: #0f0f0f; padding: 10px; border-bottom: 1px solid #222; }
+.address-bar { background: #1a1a1a; border-radius: 20px; padding: 5px 15px; border: 1px solid #333; }
+.address-bar input { background: transparent; border: none; color: white; width: 100%; outline: none; }
+webview { flex: 1; background: white; }
