@@ -1,0 +1,19 @@
+﻿{
+  "appId": "com.neon.browser",
+  "productName": "NeonBrowser",
+  "directories": { "output": "../dist" },
+  "win": { 
+    "target": "nsis", 
+    "publish": ["github"] 
+  },
+  "publish": {
+    "provider": "github",
+    "owner": "joelzimmermann12823wjdmwe-sudo",
+    "repo": "Browser"
+  },
+  "nsis": {
+    "oneClick": true,
+    "allowToChangeInstallationDirectory": false,
+    "createDesktopShortcut": true
+  }
+}
