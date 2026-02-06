@@ -1,9 +1,8 @@
-﻿{
+{
   "name": "neon-gamer-browser",
   "version": "1.0.0",
-  "description": "High-Performance Gamer Browser with Real Icons",
+  "description": "High-Performance Gamer Browser",
   "main": "src/main.js",
-  "author": "GamerDev",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
