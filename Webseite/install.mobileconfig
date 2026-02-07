@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>FullScreen</key>
+            <true/>
+            <key>IgnoreManifestScope</key>
+            <true/>
+            <key>IsRemovable</key>
+            <true/>
+            <key>Label</key>
+            <string>NeonBrowser</string>
+            <key>PayloadDescription</key>
+            <string>Erstellt ein Desktop-Icon für den Neon Browser</string>
+            <key>PayloadDisplayName</key>
+            <string>Neon Browser Web-Clip</string>
+            <key>PayloadIdentifier</key>
+            <string>com.neon.browser.clip</string>
+            <key>PayloadType</key>
+            <string>com.apple.webClip.managed</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-E5F6-G7H8-I9J0-K1L2M3N4O5P6</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>Precomposed</key>
+            <true/>
+            <key>URL</key>
+            <string>https://neon-browser.vercel.app</string>
+        </dict>
+    </array>
+    <key>PayloadDescription</key>
+    <string>Installation des Neon Browsers auf dem Homescreen</string>
+    <key>PayloadDisplayName</key>
+    <string>Neon Browser Installer</string>
+    <key>PayloadIdentifier</key>
+    <string>com.neon.browser.config</string>
+    <key>PayloadOrganization</key>
+    <string>Neon Gaming</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>Z9Y8X7W6-V5U4-T3S2-R1Q0-P9O8N7M6L5K4</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>

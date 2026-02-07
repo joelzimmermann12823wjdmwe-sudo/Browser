@@ -4,32 +4,203 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEON Browser | Next-Gen Gaming</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="NeonBrowser">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
     <style>
-        body { margin: 0; background: #0b0e14; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; }
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle, #151921 0%, #0b0e14 100%); }
-        h1 { font-size: 4rem; color: #00f2ff; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 10px; filter: drop-shadow(0 0 10px #00f2ff); }
-        p { font-size: 1.2rem; color: #888; margin-bottom: 30px; }
-        .btn-download { 
-            padding: 15px 40px; background: transparent; border: 2px solid #00f2ff; color: #00f2ff; 
-            text-decoration: none; font-weight: bold; font-size: 1.2rem; border-radius: 5px;
-            transition: 0.3s; box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-pink: #ff00ff;
+            --bg-dark: #0b0e14;
+            --card-bg: #151921;
         }
-        .btn-download:hover { background: #00f2ff; color: #0b0e14; box-shadow: 0 0 30px #00f2ff; }
-        .features { display: flex; justify-content: center; gap: 50px; padding: 50px; background: #0f121a; }
-        .feature-card { width: 200px; padding: 20px; border: 1px solid #1a1d23; border-radius: 10px; }
-        .feature-card h3 { color: #00f2ff; }
+
+        body { 
+            margin: 0; 
+            background: var(--bg-dark); 
+            color: #fff; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            overflow-x: hidden;
+        }
+
+        .hero { 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            background: radial-gradient(circle at center, #1a202c 0%, #0b0e14 100%);
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 { 
+            font-size: clamp(2.5rem, 8vw, 5rem); 
+            color: var(--neon-blue); 
+            text-transform: uppercase; 
+            letter-spacing: 8px; 
+            margin-bottom: 10px; 
+            filter: drop-shadow(0 0 15px var(--neon-blue));
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+            95% { opacity: 0.9; }
+        }
+
+        p.subtitle { 
+            font-size: 1.2rem; 
+            color: #888; 
+            margin-bottom: 40px; 
+            max-width: 600px;
+        }
+
+        .download-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-download { 
+            padding: 18px 35px; 
+            background: transparent; 
+            border: 2px solid var(--neon-blue); 
+            color: var(--neon-blue); 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            border-radius: 8px;
+            transition: all 0.3s ease; 
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+            text-transform: uppercase;
+        }
+
+        .btn-download:hover { 
+            background: var(--neon-blue); 
+            color: #000; 
+            box-shadow: 0 0 40px var(--neon-blue);
+            transform: translateY(-3px);
+        }
+
+        .btn-ios {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+        }
+
+        .btn-ios:hover {
+            background: var(--neon-pink);
+            color: #fff;
+            box-shadow: 0 0 40px var(--neon-pink);
+        }
+
+        .instruction {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: #666;
+            max-width: 450px;
+            line-height: 1.5;
+        }
+
+        .features { 
+            display: flex; 
+            flex-wrap: wrap;
+            justify-content: center; 
+            gap: 30px; 
+            padding: 80px 20px; 
+            background: #0f121a; 
+        }
+
+        .feature-card { 
+            width: 280px; 
+            padding: 30px; 
+            background: var(--card-bg);
+            border: 1px solid #1a1d23; 
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--neon-blue);
+            transform: scale(1.05);
+        }
+
+        .feature-card h3 { 
+            color: var(--neon-blue); 
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            color: #444;
+            font-size: 0.9rem;
+            border-top: 1px solid #1a1d23;
+        }
+
+        /* Mobile Optimierung */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.8rem; }
+            .btn-download { width: 100%; max-width: 300px; }
+        }
     </style>
+
+    <script>
+        // Service Worker für PWA Support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+    </script>
 </head>
 <body>
+
     <div class="hero">
         <h1>NEON BROWSER</h1>
-        <p>Schnell. Sicher. RGB-Powered.</p>
-        <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/latest" class="btn-download">JETZT DOWNLOADEN</a>
+        <p class="subtitle">Erlebe das Web in High-Speed. Minimalistisch, sicher und vollgepackt mit Gamer-Features.</p>
+        
+        <div class="download-container">
+            <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/latest" class="btn-download">
+                Desktop Version (EXE)
+            </a>
+            
+            <a href="/install.mobileconfig" class="btn-download btn-ios">
+                iOS App Installieren
+            </a>
+        </div>
+
+        <div class="instruction">
+            <strong>iOS Anleitung:</strong> Klicke auf den Button, erlaube den Download. Gehe dann in deine <strong>Einstellungen</strong> &rarr; <strong>Profil geladen</strong> und klicke oben rechts auf "Installieren".
+        </div>
     </div>
+
     <div class="features">
-        <div class="feature-card"><h3>Chromium</h3><p>Maximale Kompatibilität mit allen Webseiten.</p></div>
-        <div class="feature-card"><h3>System Monitor</h3><p>CPU & RAM immer im Blick.</p></div>
-        <div class="feature-card"><h3>Auto-Update</h3><p>Immer auf dem neuesten Stand.</p></div>
+        <div class="feature-card">
+            <h3>Ultra Schnell</h3>
+            <p>Optimierte Chromium-Engine für minimale Ladezeiten bei Streams und Games.</p>
+        </div>
+        <div class="feature-card">
+            <h3>iOS Web-App</h3>
+            <p>Nutze den Neon Browser auf deinem iPhone – ganz ohne App Store Zwänge.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Auto-Update</h3>
+            <p>Unter Windows bleibst du dank automatischer Hintergrund-Updates immer aktuell.</p>
+        </div>
     </div>
+
+    <footer>
+        &copy; 2024 Neon Gaming Browser | Entwickelt von Joel
+    </footer>
+
 </body>
 </html>
