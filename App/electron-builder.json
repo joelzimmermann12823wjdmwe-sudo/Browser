@@ -4,18 +4,20 @@
   "directories": { "output": "../dist" },
   "win": {
     "target": "nsis",
+    "icon": "build/icon.ico",
     "publish": ["github"]
   },
   "nsis": {
     "oneClick": true,
+    "perMachine": false,
     "allowToChangeInstallationDirectory": false,
     "createDesktopShortcut": true,
-    "createStartMenuShortcut": true,
-    "shortcutName": "Neon Browser"
+    "deleteAppDataOnUninstall": true
   },
   "publish": {
     "provider": "github",
     "owner": "joelzimmermann12823wjdmwe-sudo",
-    "repo": "Browser"
+    "repo": "Browser",
+    "releaseType": "release"
   }
 }
