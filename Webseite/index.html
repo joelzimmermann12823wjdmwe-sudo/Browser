@@ -2,205 +2,179 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEON Browser | Next-Gen Gaming</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEON Browser</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="NeonBrowser">
     <link rel="apple-touch-icon" href="icon-192.png">
-    
+
     <style>
-        :root {
-            --neon-blue: #00f2ff;
-            --neon-pink: #ff00ff;
-            --bg-dark: #0b0e14;
-            --card-bg: #151921;
-        }
-
-        body { 
-            margin: 0; 
-            background: var(--bg-dark); 
-            color: #fff; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            overflow-x: hidden;
-        }
-
-        .hero { 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            background: radial-gradient(circle at center, #1a202c 0%, #0b0e14 100%);
-            text-align: center;
-            padding: 20px;
-        }
-
-        h1 { 
-            font-size: clamp(2.5rem, 8vw, 5rem); 
-            color: var(--neon-blue); 
-            text-transform: uppercase; 
-            letter-spacing: 8px; 
-            margin-bottom: 10px; 
-            filter: drop-shadow(0 0 15px var(--neon-blue));
-            animation: flicker 3s infinite;
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-            95% { opacity: 0.9; }
-        }
-
-        p.subtitle { 
-            font-size: 1.2rem; 
-            color: #888; 
-            margin-bottom: 40px; 
-            max-width: 600px;
-        }
-
-        .download-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
+        /* --- BASIS DESIGN --- */
+        body { margin: 0; background: #0b0e14; color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+        
+        /* --- 1. DIE DOWNLOAD SEITE (Standard) --- */
+        #landing-page { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+        .hero-title { font-size: 3rem; color: #00f2ff; text-shadow: 0 0 20px #00f2ff; margin-bottom: 10px; }
         .btn-download { 
-            padding: 18px 35px; 
-            background: transparent; 
-            border: 2px solid var(--neon-blue); 
-            color: var(--neon-blue); 
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 1.1rem; 
-            border-radius: 8px;
-            transition: all 0.3s ease; 
+            padding: 15px 30px; border: 2px solid #00f2ff; color: #00f2ff; text-decoration: none; 
+            border-radius: 8px; font-weight: bold; margin: 10px; display: inline-block; 
             box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
-            text-transform: uppercase;
+        }
+        .btn-ios { border-color: #ff00ff; color: #ff00ff; box-shadow: 0 0 15px rgba(255, 0, 255, 0.2); }
+
+        /* --- 2. DAS BROWSER INTERFACE (Versteckt) --- */
+        #app-interface { display: none; flex-direction: column; height: 100vh; background: #151921; }
+        
+        /* Die Top-Bar (Adressleiste) */
+        .browser-top-bar {
+            padding: 40px 15px 15px 15px; /* Oben mehr Platz für die Notch */
+            background: #0b0e14;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .btn-download:hover { 
-            background: var(--neon-blue); 
-            color: #000; 
-            box-shadow: 0 0 40px var(--neon-blue);
-            transform: translateY(-3px);
+        #url-input {
+            flex: 1;
+            background: #1a1d23;
+            border: 1px solid #333;
+            color: #00f2ff;
+            padding: 10px 15px;
+            border-radius: 20px;
+            outline: none;
+            font-size: 16px;
         }
 
-        .btn-ios {
-            border-color: var(--neon-pink);
-            color: var(--neon-pink);
-            box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+        .btn-go {
+            background: #00f2ff;
+            border: none;
+            color: black;
+            font-weight: bold;
+            padding: 0 15px;
+            border-radius: 20px;
+            cursor: pointer;
         }
 
-        .btn-ios:hover {
-            background: var(--neon-pink);
-            color: #fff;
-            box-shadow: 0 0 40px var(--neon-pink);
+        /* Der Inhalt (Dashboard) */
+        .browser-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .instruction {
-            margin-top: 25px;
-            font-size: 0.85rem;
-            color: #666;
-            max-width: 450px;
-            line-height: 1.5;
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
         }
 
-        .features { 
-            display: flex; 
-            flex-wrap: wrap;
-            justify-content: center; 
-            gap: 30px; 
-            padding: 80px 20px; 
-            background: #0f121a; 
-        }
-
-        .feature-card { 
-            width: 280px; 
-            padding: 30px; 
-            background: var(--card-bg);
-            border: 1px solid #1a1d23; 
+        .shortcut {
+            background: #1a1d23;
+            padding: 15px;
             border-radius: 15px;
-            transition: 0.3s;
-        }
-
-        .feature-card:hover {
-            border-color: var(--neon-blue);
-            transform: scale(1.05);
-        }
-
-        .feature-card h3 { 
-            color: var(--neon-blue); 
-            margin-top: 0;
-            font-size: 1.5rem;
-        }
-
-        footer {
-            padding: 40px;
             text-align: center;
-            color: #444;
-            font-size: 0.9rem;
-            border-top: 1px solid #1a1d23;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: 0.2s;
         }
+        .shortcut:active { transform: scale(0.95); border-color: #00f2ff; }
+        .shortcut-icon { font-size: 24px; margin-bottom: 5px; display: block; }
+        .shortcut-name { font-size: 12px; color: #aaa; }
 
-        /* Mobile Optimierung */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.8rem; }
-            .btn-download { width: 100%; max-width: 300px; }
+        /* --- LOGIK: WANN ZEIGEN WIR WAS? --- */
+        /* Wenn die App im Vollbild (Standalone) auf iOS läuft, zeige das App-Interface */
+        @media all and (display-mode: standalone) {
+            #landing-page { display: none; }
+            #app-interface { display: flex; }
         }
     </style>
-
-    <script>
-        // Service Worker für PWA Support
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js');
-            });
-        }
-    </script>
 </head>
 <body>
 
-    <div class="hero">
-        <h1>NEON BROWSER</h1>
-        <p class="subtitle">Erlebe das Web in High-Speed. Minimalistisch, sicher und vollgepackt mit Gamer-Features.</p>
-        
-        <div class="download-container">
-            <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/latest" class="btn-download">
-                Desktop Version (EXE)
-            </a>
+    <div id="landing-page">
+        <h1 class="hero-title">NEON BROWSER</h1>
+        <p>Next-Gen Gaming Experience</p>
+        <br>
+        <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/latest" class="btn-download">WINDOWS DOWNLOAD</a>
+        <a href="/install.mobileconfig" class="btn-download btn-ios">iOS INSTALLIEREN</a>
+        <p style="font-size: 0.8rem; color: #666; margin-top: 20px;">Für iOS: Datei laden -> Einstellungen -> Profil installieren</p>
+    </div>
+
+    <div id="app-interface">
+        <div class="browser-top-bar">
+            <input type="text" id="url-input" placeholder="Webseite suchen..." onkeypress="handleEnter(event)">
+            <button class="btn-go" onclick="navigate()">GO</button>
+        </div>
+
+        <div class="browser-content">
+            <h2 style="color: #00f2ff; margin-bottom: 30px;">NEON START</h2>
             
-            <a href="/install.mobileconfig" class="btn-download btn-ios">
-                iOS App Installieren
-            </a>
-        </div>
-
-        <div class="instruction">
-            <strong>iOS Anleitung:</strong> Klicke auf den Button, erlaube den Download. Gehe dann in deine <strong>Einstellungen</strong> &rarr; <strong>Profil geladen</strong> und klicke oben rechts auf "Installieren".
+            <div class="shortcut-grid">
+                <div class="shortcut" onclick="openLink('https://google.com')">
+                    <span class="shortcut-icon">🔍</span>
+                    <span class="shortcut-name">Google</span>
+                </div>
+                <div class="shortcut" onclick="openLink('https://youtube.com')">
+                    <span class="shortcut-icon">▶️</span>
+                    <span class="shortcut-name">YouTube</span>
+                </div>
+                <div class="shortcut" onclick="openLink('https://twitch.tv')">
+                    <span class="shortcut-icon">💜</span>
+                    <span class="shortcut-name">Twitch</span>
+                </div>
+                <div class="shortcut" onclick="openLink('https://discord.com/app')">
+                    <span class="shortcut-icon">💬</span>
+                    <span class="shortcut-name">Discord</span>
+                </div>
+                <div class="shortcut" onclick="openLink('https://reddit.com')">
+                    <span class="shortcut-icon">🤖</span>
+                    <span class="shortcut-name">Reddit</span>
+                </div>
+                <div class="shortcut" onclick="openLink('https://chatgpt.com')">
+                    <span class="shortcut-icon">🧠</span>
+                    <span class="shortcut-name">AI</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="features">
-        <div class="feature-card">
-            <h3>Ultra Schnell</h3>
-            <p>Optimierte Chromium-Engine für minimale Ladezeiten bei Streams und Games.</p>
-        </div>
-        <div class="feature-card">
-            <h3>iOS Web-App</h3>
-            <p>Nutze den Neon Browser auf deinem iPhone – ganz ohne App Store Zwänge.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Auto-Update</h3>
-            <p>Unter Windows bleibst du dank automatischer Hintergrund-Updates immer aktuell.</p>
-        </div>
-    </div>
+    <script>
+        // PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js');
+        }
 
-    <footer>
-        &copy; 2024 Neon Gaming Browser | Entwickelt von Joel
-    </footer>
+        // Browser Logik
+        function navigate() {
+            let url = document.getElementById('url-input').value;
+            if (!url) return;
+            
+            // Wenn keine Domain, dann Google Suche
+            if (!url.includes('.') && !url.includes('://')) {
+                url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
+            } else if (!url.startsWith('http')) {
+                url = 'https://' + url;
+            }
+            
+            // Öffne die Seite
+            window.location.href = url;
+        }
 
+        function openLink(url) {
+            window.location.href = url;
+        }
+
+        function handleEnter(e) {
+            if (e.key === 'Enter') navigate();
+        }
+    </script>
 </body>
 </html>
