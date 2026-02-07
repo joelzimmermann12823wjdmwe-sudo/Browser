@@ -1,7 +1,8 @@
 {
+  "cleanUrls": true,
   "headers": [
     {
-      "source": "/install.mobileconfig",
+      "source": "/(.*).mobileconfig",
       "headers": [
         {
           "key": "Content-Type",

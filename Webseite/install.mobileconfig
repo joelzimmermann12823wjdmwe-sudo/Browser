@@ -28,7 +28,7 @@
             <key>Precomposed</key>
             <true/>
             <key>URL</key>
-            <string>https://neon-browser.vercel.app</string>
+            <string>https://neon-browser.vercel.app/iOS/index.html</string>
         </dict>
     </array>
     <key>PayloadDescription</key>
