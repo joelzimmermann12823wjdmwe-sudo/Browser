@@ -3,88 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEON GX | Next Gen Browser</title>
+    <title>NEON GX | Ultimate Experience</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
-        :root { --neon: #00f2ff; --bg: #0b0e14; }
-        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; text-align: center; }
-        
-        header { padding: 100px 20px; background: linear-gradient(to bottom, #0f111a, #0b0e14); }
-        
-        .logo { font-size: 60px; font-weight: bold; color: var(--neon); text-shadow: 0 0 20px rgba(0,242,255,0.5); margin-bottom: 10px; }
-        .tagline { font-size: 20px; color: #888; margin-bottom: 40px; }
+        :root { 
+            --neon: #00f2ff; 
+            --neon-green: #00ff88;
+            --bg: #0b0e14; 
+            --card: #151921; 
+        }
 
-        .download-card {
-            background: #151921;
-            border: 1px solid #1a1d26;
-            padding: 40px;
-            border-radius: 20px;
-            display: inline-block;
-            max-width: 400px;
+        * { box-sizing: border-box; outline: none; }
+        
+        body { 
+            margin: 0; 
+            background: var(--bg); 
+            color: white; 
+            font-family: 'Segoe UI', sans-serif; 
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #1a1d26; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon); }
+
+        /* --- Hotbar --- */
+        .hotbar {
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: rgba(11, 14, 20, 0.8); backdrop-filter: blur(15px);
+            display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1000;
+        }
+        .hotbar a {
+            color: #fff; text-decoration: none; margin: 0 20px;
+            font-size: 13px; font-weight: 600; letter-spacing: 2px;
+            transition: 0.4s; opacity: 0.6; text-transform: uppercase;
+        }
+        .hotbar a:hover { opacity: 1; color: var(--neon); text-shadow: 0 0 15px var(--neon); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            background: radial-gradient(circle at center, #16212e 0%, #0b0e14 100%);
+        }
+        .logo-main { 
+            font-size: clamp(50px, 10vw, 100px); font-weight: 900; 
+            color: var(--neon); text-shadow: 0 0 30px rgba(0,242,255,0.3);
+            margin: 0;
+        }
+
+        /* --- Stats Card & Live Pulse --- */
+        .stats-grid { 
+            display: flex; justify-content: center; gap: 20px; 
+            flex-wrap: wrap; margin-top: 40px; 
+        }
+        .stat-card { 
+            background: var(--card); padding: 20px 30px; 
+            border-radius: 12px; border: 1px solid #1a1d26; 
+            display: flex; align-items: center; gap: 15px;
             transition: 0.3s;
         }
-        .download-card:hover { border-color: var(--neon); box-shadow: 0 0 30px rgba(0,242,255,0.1); }
-
-        .btn-main {
-            display: inline-block;
-            background: var(--neon);
-            color: black;
-            padding: 18px 40px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 18px;
-            text-decoration: none;
-            transition: 0.3s;
-            margin-top: 20px;
-        }
-        .btn-main:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,242,255,0.3); }
-
-        .features { display: flex; justify-content: center; gap: 30px; margin-top: 80px; flex-wrap: wrap; padding: 0 20px; }
-        .f-item { width: 250px; padding: 20px; }
-        .f-item i { font-size: 30px; color: var(--neon); margin-bottom: 15px; }
+        .stat-card:hover { border-color: var(--neon); transform: translateY(-5px); }
         
-        footer { margin-top: 100px; padding: 40px; border-top: 1px solid #1a1d26; color: #444; font-size: 14px; }
+        .pulse {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 0 rgba(0, 255, 136, 0.4);
+            animation: pulse-green 2s infinite;
+        }
+        .pulse.offline { background: #ff4444; animation: pulse-red 2s infinite; }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+        }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
+        }
+
+        /* --- Buttons --- */
+        .btn-glow {
+            padding: 20px 45px; background: var(--neon); color: black;
+            text-decoration: none; border-radius: 50px; font-weight: bold;
+            font-size: 18px; transition: 0.4s; position: relative;
+            overflow: hidden; display: inline-block; margin-top: 40px;
+        }
+        .btn-glow:hover { box-shadow: 0 0 40px var(--neon); transform: scale(1.05); }
+
+        /* --- Footer --- */
+        footer { 
+            background: #05070a; padding: 80px 20px; 
+            border-top: 1px solid #111; 
+        }
+        .footer-content { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px; max-width: 1200px; margin: auto; text-align: left;
+        }
+        .footer-content h4 { color: var(--neon); font-size: 12px; letter-spacing: 2px; }
+        .footer-content p { color: #555; font-size: 13px; line-height: 1.8; }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">NEON GX</div>
-        <div class="tagline">Schneller. Sicherer. Stylischer.</div>
-        
-        <div class="download-card">
-            <i class="fab fa-windows" style="font-size: 40px; margin-bottom: 20px;"></i>
-            <h3>Windows Version</h3>
-            <p style="color:#666; font-size: 14px;">Version 1.2.1 Stable (64-Bit)</p>
-            
-            <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/download/v1.1.5/NEON.GX.Setup.1.2.1.exe" class="btn-main">
-                <i class="fas fa-download"></i> KOSTENLOS LADEN
+    <nav class="hotbar">
+        <a href="#home">Home</a>
+        <a href="#stats">Live Stats</a>
+        <a href="#download">Download</a>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1 class="logo-main" data-aos="zoom-in">NEON GX</h1>
+        <p data-aos="fade-up" data-aos-delay="200" style="color: #666; font-size: 20px;">Faster than Light. Safer than Vaults.</p>
+        <div data-aos="fade-up" data-aos-delay="400">
+            <a href="#download" class="btn-glow">JETZT STARTEN</a>
+        </div>
+    </section>
+
+    <section id="stats" style="padding: 100px 20px; text-align: center;">
+        <h2 data-aos="fade-down">System Status</h2>
+        <div class="stats-grid">
+            <div class="stat-card" data-aos="flip-left" data-aos-delay="100">
+                <div id="dot-google" class="pulse"></div>
+                <div>
+                    <div style="font-size: 14px; font-weight: bold;">Google Core</div>
+                    <small id="status-google" style="color: var(--neon-green);">Checking...</small>
+                </div>
+            </div>
+            <div class="stat-card" data-aos="flip-left" data-aos-delay="200">
+                <div id="dot-ai" class="pulse"></div>
+                <div>
+                    <div style="font-size: 14px; font-weight: bold;">NEON AI</div>
+                    <small style="color: var(--neon-green);">Live & Operational</small>
+                </div>
+            </div>
+            <div class="stat-card" data-aos="flip-left" data-aos-delay="300">
+                <div class="pulse"></div>
+                <div>
+                    <div style="font-size: 14px; font-weight: bold;">Update Server</div>
+                    <small style="color: var(--neon-green);">Synced</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" style="padding: 150px 20px; text-align: center; background: #0d1117;">
+        <div data-aos="zoom-out">
+            <h2 style="font-size: 40px;">Ready for the Future?</h2>
+            <p style="color: #888;">Lade NEON GX V1.2.1 direkt von unseren Servern.</p>
+            <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/download/v1.1.5/NEON.GX.Setup.1.2.1.exe" class="btn-glow">
+                <i class="fas fa-download"></i> SETUP.EXE (Windows)
             </a>
         </div>
-    </header>
-
-    <div class="features">
-        <div class="f-item">
-            <i class="fas fa-bolt"></i>
-            <h3>Hyper Speed</h3>
-            <p>Optimierte Engine für blitzschnelles Surfen ohne Verzögerung.</p>
-        </div>
-        <div class="f-item">
-            <i class="fas fa-shield-alt"></i>
-            <h3>Privacy First</h3>
-            <p>Kein Tracking. Keine Spionage. Deine Daten gehören dir.</p>
-        </div>
-        <div class="f-item">
-            <i class="fas fa-paint-brush"></i>
-            <h3>GX Design</h3>
-            <p>Einzigartiger Dark-Mode mit Neon-Akzenten für Gamer und Devs.</p>
-        </div>
-    </div>
+    </section>
 
     <footer>
-        &copy; 2026 NEON Ecosystem. Alle Rechte vorbehalten.<br>
-        Entwickelt für die Zukunft des Internets.
+        <div class="footer-content">
+            <div data-aos="fade-up">
+                <h4>DATENSCHUTZ</h4>
+                <p>NEON GX arbeitet lokal. Keine Übermittlung von Browserdaten, Passwörtern oder Suchanfragen an externe Server.</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="100">
+                <h4>AGB</h4>
+                <p>Nutzung auf eigene Gefahr. Software wird als Freeware bereitgestellt. Keine Haftung für Drittinhalte.</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <h4>KONTAKT</h4>
+                <p>Joel Zimmermann<br>joel.streamermail@gmail.com<br>Support: Mo-Fr</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="300">
+                <h4>COPYRIGHT</h4>
+                <p>© 2026 NEON Ecosystem.<br>Alle Rechte vorbehalten.<br>Handgefertigt in Deutschland.</p>
+            </div>
+        </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Animationen aktivieren
+        AOS.init({ duration: 1000, once: false });
+
+        // --- LIVE STATUS CHECK ---
+        async function checkStatus() {
+            const googleDot = document.getElementById('dot-google');
+            const googleText = document.getElementById('status-google');
+
+            try {
+                // Wir nutzen einen Fetch zu Google (mit mode no-cors, da wir nur wissen wollen ob der Server antwortet)
+                await fetch('https://www.google.com', { mode: 'no-cors' });
+                googleDot.classList.remove('offline');
+                googleText.innerText = "Connected";
+                googleText.style.color = "var(--neon-green)";
+            } catch (e) {
+                googleDot.classList.add('offline');
+                googleText.innerText = "Offline / Blocked";
+                googleText.style.color = "#ff4444";
+            }
+        }
+
+        // Alle 10 Sekunden prüfen
+        checkStatus();
+        setInterval(checkStatus, 10000);
+    </script>
 </body>
 </html>
