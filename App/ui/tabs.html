@@ -1,118 +1,72 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="de">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --neon: #00f2ff; --bg: #0b0e14; --side: #05070a; }
-        body { margin: 0; display: flex; height: 100vh; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
-
+        body { margin: 0; background: #0b0e14; color: white; font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        
         /* Sidebar */
-        .sidebar { 
-            width: 65px; background: var(--side); display: flex; flex-direction: column; 
-            align-items: center; padding-top: 20px; gap: 25px; border-right: 1px solid #1a1a1a; 
-            transition: 0.3s; position: relative; z-index: 10;
-        }
-        .sidebar.collapsed { width: 0; padding: 20px 0; overflow: hidden; border-right: none; }
-
-        .nav-icon { font-size: 20px; color: #555; cursor: pointer; transition: 0.3s; }
-        .nav-icon:hover, .nav-icon.active { color: var(--neon); filter: drop-shadow(0 0 8px var(--neon)); }
+        .sidebar { width: 65px; background: #0f111a; display: flex; flex-direction: column; align-items: center; padding-top: 20px; border-right: 1px solid #1a1d26; -webkit-app-region: drag; }
+        .side-icon { font-size: 20px; color: #4a4d5e; margin-bottom: 25px; cursor: pointer; transition: 0.3s; -webkit-app-region: no-drag; }
+        .side-icon:hover { color: #00f2ff; transform: scale(1.2); text-shadow: 0 0 10px #00f2ff; }
         
-        .main { flex: 1; display: flex; flex-direction: column; }
+        /* Main Area */
+        .main { flex-grow: 1; display: flex; flex-direction: column; }
+        .navbar { height: 45px; background: #0b0e14; display: flex; align-items: center; padding: 0 15px; border-bottom: 1px solid #1a1d26; -webkit-app-region: drag; }
         
-        /* Topbar */
-        .topbar { height: 45px; background: #0f1218; display: flex; align-items: center; padding: 0 15px; -webkit-app-region: drag; border-bottom: 1px solid #1a1a1a; }
-        .search-box { flex: 1; background: #1a1f26; border-radius: 6px; padding: 5px 15px; -webkit-app-region: no-drag; border: 1px solid #333; display: flex; align-items: center; margin: 0 15px; }
-        #url-input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 13px; }
+        .url-bar { flex-grow: 1; background: #1c212b; border-radius: 20px; padding: 5px 15px; display: flex; align-items: center; margin: 0 15px; border: 1px solid transparent; -webkit-app-region: no-drag; }
+        .url-bar:focus-within { border-color: #00f2ff; }
+        .url-bar input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 13px; }
         
-        .bookmark-btn { color: #555; cursor: pointer; margin-left: 10px; transition: 0.3s; }
-        .bookmark-btn.saved { color: #ffcc00; }
+        .win-controls { display: flex; gap: 15px; -webkit-app-region: no-drag; }
+        .win-btn { color: #444; cursor: pointer; transition: 0.2s; }
+        .win-btn:hover { color: white; }
+        .win-btn.close:hover { color: #ff4444; }
 
-        .win-ctrl { -webkit-app-region: no-drag; display: flex; gap: 15px; }
-
-        /* View & Stats */
-        #wv-container { flex: 1; background: white; }
-        webview { width: 100%; height: 100%; }
-        .bottom-stats { position: absolute; bottom: 12px; left: 12px; font-size: 10px; font-family: monospace; color: var(--neon); line-height: 1.4; transition: 0.3s; pointer-events: none; }
+        webview { flex-grow: 1; background: white; }
+        .ver { margin-top: auto; margin-bottom: 15px; font-size: 10px; color: #00f2ff; font-weight: bold; opacity: 0.5; }
     </style>
 </head>
 <body>
-    <div class="sidebar" id="sidebar">
-        <i class="fas fa-home nav-icon" onclick="go('https://google.com')"></i>
-        <i class="fab fa-twitch nav-icon" onclick="go('https://twitch.tv')"></i>
-        <i class="fab fa-discord nav-icon" onclick="go('https://discord.com')"></i>
-        <i class="fab fa-youtube nav-icon" onclick="go('https://youtube.com')"></i>
-        <i class="fas fa-star nav-icon" title="Lesezeichen" onclick="showBookmarks()"></i>
-        <i class="fas fa-history nav-icon" title="Verlauf" onclick="showHistory()"></i>
-        <i class="fas fa-chevron-left nav-icon" style="margin-top:auto; margin-bottom:20px;" onclick="toggleSidebar()"></i>
+
+    <div class="sidebar">
+        <div class="side-icon" onclick="location.reload()"><i class="fas fa-home"></i></div>
+        <div class="side-icon" onclick="openPage('settings')"><i class="fas fa-cog"></i></div>
+        <div class="side-icon" onclick="openPage('info')"><i class="fas fa-info-circle"></i></div>
+        <div class="ver">GX</div>
     </div>
 
     <div class="main">
-        <div class="topbar">
-            <i class="fas fa-bars" style="color:var(--neon); cursor:pointer; -webkit-app-region: no-drag;" onclick="toggleSidebar()"></i>
-            <div class="search-box">
-                <input type="text" id="url-input" placeholder="URL oder Suche..." onkeypress="handleUrl(event)">
-                <i class="fas fa-star bookmark-btn" id="star-icon" onclick="addBookmark()"></i>
+        <div class="navbar">
+            <i class="fas fa-redo win-btn" onclick="wv.reload()"></i>
+            <div class="url-bar">
+                <input type="text" id="ui" placeholder="Suche oder URL eingeben...">
             </div>
-            <div class="win-ctrl">
-                <span onclick="window.neonAPI.ctrl('min')" style="cursor:pointer;">_</span>
-                <span onclick="window.neonAPI.ctrl('close')" style="color:#ff0055; cursor:pointer;">X</span>
+            <div class="win-controls">
+                <i class="fas fa-minus win-btn" onclick="winCtrl('minimize')"></i>
+                <i class="fas fa-times win-btn close" onclick="winCtrl('close')"></i>
             </div>
         </div>
-        <div id="wv-container">
-            <webview id="wv" src="https://www.google.com"></webview>
-        </div>
-    </div>
-
-    <div class="bottom-stats" id="stats">
-        CPU <span id="cpu">0.0%</span><br>
-        RAM <span id="ram">0%</span><br>
-        <span id="ram-mb">0MB</span>
+        <webview id="wv" src="https://www.google.com"></webview>
     </div>
 
     <script>
-        const webview = document.getElementById('wv');
-        const sidebar = document.getElementById('sidebar');
-        const starIcon = document.getElementById('star-icon');
+        const { ipcRenderer } = require('electron');
+        const wv = document.getElementById('wv');
+        const ui = document.getElementById('ui');
 
-        function toggleSidebar() {
-            sidebar.classList.toggle('collapsed');
-            document.getElementById('stats').style.left = sidebar.classList.contains('collapsed') ? "12px" : "77px";
-        }
+        function winCtrl(a) { ipcRenderer.send('window-control', a); }
+        function openPage(p) { ipcRenderer.send('nav-to', p); }
 
-        function go(url) { webview.src = url; }
-
-        function handleUrl(e) {
+        ui.addEventListener('keydown', (e) => {
             if(e.key === 'Enter') {
-                let url = document.getElementById('url-input').value;
-                if(!url.includes('.')) url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
-                else if(!url.startsWith('http')) url = 'https://' + url;
-                webview.src = url;
+                let v = ui.value;
+                if(!v.includes('.') || v.includes(' ')) v = 'https://google.com/search?q='+v;
+                else if(!v.startsWith('http')) v = 'https://'+v;
+                wv.loadURL(v);
             }
-        }
-
-        function addBookmark() {
-            const data = { title: webview.getTitle(), url: webview.getURL() };
-            window.neonAPI.save('bookmarks', data);
-            starIcon.classList.add('saved');
-            alert("Lesezeichen gespeichert!");
-        }
-
-        window.neonAPI.onStats(s => {
-            document.getElementById('cpu').innerText = s.cpu + ".0%";
-            document.getElementById('ram').innerText = s.ram + "%";
-            document.getElementById('ram-mb').innerText = s.ramMb + "MB";
         });
-
-        webview.addEventListener('did-finish-load', () => {
-            document.getElementById('url-input').value = webview.getURL();
-            starIcon.classList.remove('saved');
-            window.neonAPI.save('history', { 
-                title: webview.getTitle(), url: webview.getURL(), time: new Date().toLocaleTimeString() 
-            });
-        });
-        
-        function showHistory() { webview.src = 'history.html'; }
-        function showBookmarks() { /* Hier könntest du eine bookmarks.html analog zur history.html laden */ }
     </script>
 </body>
 </html>

@@ -1,0 +1,11 @@
+NEON GX - THE HYPER EXPERIENCE BROWSER
+Copyright (c) 2026 NEON Ecosystem
+
+LIZENZ- UND DATENSCHUTZBESTIMMUNGEN:
+
+1. NUTZUNG: NEON GX ist eine kostenlose Software. Die kommerzielle Weitervermarktung ohne Genehmigung ist untersagt.
+2. DATENSCHUTZ: NEON GX verfolgt keine Nutzeraktivitäten. Alle Browserdaten verbleiben lokal auf Ihrem System.
+3. SICHERHEIT: Der Nutzer ist für die besuchten Inhalte selbst verantwortlich.
+4. URHEBERRECHT: Das Design und die Marke NEON GX sind Eigentum des NEON Ecosystems.
+
+Wählen Sie "Annehmen", um die Installation auf Ihrem System fortzusetzen.

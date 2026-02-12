@@ -1,0 +1,21 @@
+{
+  "appId": "com.neon.browser",
+  "productName": "Neon Browser",
+  "directories": {
+    "output": "dist"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ]
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "runAfterFinish": true
+  }
+}
