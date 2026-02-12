@@ -3,73 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEON GX | Hyper-Experience</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>NEON GX | Next Gen Browser</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --neon: #00f2ff; --bg: #0b0e14; --glass: rgba(255, 255, 255, 0.03); --border: rgba(255, 255, 255, 0.1); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes glowPulse { 0% { text-shadow: 0 0 5px var(--neon); } 50% { text-shadow: 0 0 20px var(--neon), 0 0 30px var(--neon); } 100% { text-shadow: 0 0 5px var(--neon); } }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; text-align: center; scroll-behavior: smooth; overflow-x: hidden; }
-        .navbar { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--glass); backdrop-filter: blur(15px); padding: 10px 30px; border-radius: 50px; border: 1px solid var(--border); display: flex; gap: 20px; z-index: 100; animation: fadeIn 0.8s ease-out; }
-        .nav-item { color: #aaa; text-decoration: none; cursor: pointer; transition: 0.3s; font-size: 14px; }
-        .nav-item:hover { color: var(--neon); transform: scale(1.1); }
-        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; animation: fadeIn 1s ease-in; }
-        .hero h1 { font-size: 6rem; margin: 0; background: linear-gradient(to bottom, #fff, var(--neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: glowPulse 3s infinite alternate; }
-        .hero p { animation: float 4s infinite ease-in-out; }
-        .btn { border: 1px solid var(--neon); color: var(--neon); padding: 12px 30px; border-radius: 50px; text-decoration: none; margin-top: 20px; display: inline-block; transition: 0.4s; font-weight: bold; cursor: pointer; background: transparent; }
-        .btn:hover { background: var(--neon); color: black; box-shadow: 0 0 30px var(--neon); transform: scale(1.05); }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: #0f131a; padding: 40px; border-radius: 30px; border: 1px solid var(--border); width: 90%; max-width: 600px; animation: fadeIn 0.4s ease-out; text-align: left;}
-        .api-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 10px; }
-        .online { background: #00ff88; box-shadow: 0 0 10px #00ff88; }
-        footer { padding: 40px; border-top: 1px solid var(--border); opacity: 0.6; font-size: 12px; }
+        :root { --neon: #00f2ff; --bg: #0b0e14; }
+        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; text-align: center; }
+        
+        header { padding: 100px 20px; background: linear-gradient(to bottom, #0f111a, #0b0e14); }
+        
+        .logo { font-size: 60px; font-weight: bold; color: var(--neon); text-shadow: 0 0 20px rgba(0,242,255,0.5); margin-bottom: 10px; }
+        .tagline { font-size: 20px; color: #888; margin-bottom: 40px; }
+
+        .download-card {
+            background: #151921;
+            border: 1px solid #1a1d26;
+            padding: 40px;
+            border-radius: 20px;
+            display: inline-block;
+            max-width: 400px;
+            transition: 0.3s;
+        }
+        .download-card:hover { border-color: var(--neon); box-shadow: 0 0 30px rgba(0,242,255,0.1); }
+
+        .btn-main {
+            display: inline-block;
+            background: var(--neon);
+            color: black;
+            padding: 18px 40px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            text-decoration: none;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .btn-main:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,242,255,0.3); }
+
+        .features { display: flex; justify-content: center; gap: 30px; margin-top: 80px; flex-wrap: wrap; padding: 0 20px; }
+        .f-item { width: 250px; padding: 20px; }
+        .f-item i { font-size: 30px; color: var(--neon); margin-bottom: 15px; }
+        
+        footer { margin-top: 100px; padding: 40px; border-top: 1px solid #1a1d26; color: #444; font-size: 14px; }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <span class="nav-item" onclick="location.reload()">Home</span>
-        <span class="nav-item" onclick="openModal('downloadModal')">Download</span>
-        <span class="nav-item" onclick="openModal('statsModal'); checkApis();">System-Stats</span>
-    </nav>
-    <div class="hero">
-        <p style="letter-spacing: 8px; color: #555;">NEON ECOSYSTEM</p>
-        <h1>NEON GX</h1>
-        <button class="btn" onclick="openModal('downloadModal')">DOWNLOAD STARTEN</button>
-    </div>
-    <div id="statsModal" class="modal">
-        <div class="modal-content">
-            <h2 style="color: var(--neon)">API Status Monitor</h2>
-            <div id="api-list">
-                <div class="api-card"><span>Google Services</span><span id="google-status"><span class="status-dot online"></span>Online</span></div>
-                <div class="api-card"><span>Discord Gateway</span><span id="discord-status"><span class="status-dot online"></span>Online</span></div>
-            </div>
-            <button class="btn" onclick="closeModal('statsModal')">Schließen</button>
+
+    <header>
+        <div class="logo">NEON GX</div>
+        <div class="tagline">Schneller. Sicherer. Stylischer.</div>
+        
+        <div class="download-card">
+            <i class="fab fa-windows" style="font-size: 40px; margin-bottom: 20px;"></i>
+            <h3>Windows Version</h3>
+            <p style="color:#666; font-size: 14px;">Version 1.2.1 Stable (64-Bit)</p>
+            
+            <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/download/v1.1.5/NEON.GX.Setup.1.2.1.exe" class="btn-main">
+                <i class="fas fa-download"></i> KOSTENLOS LADEN
+            </a>
+        </div>
+    </header>
+
+    <div class="features">
+        <div class="f-item">
+            <i class="fas fa-bolt"></i>
+            <h3>Hyper Speed</h3>
+            <p>Optimierte Engine für blitzschnelles Surfen ohne Verzögerung.</p>
+        </div>
+        <div class="f-item">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Privacy First</h3>
+            <p>Kein Tracking. Keine Spionage. Deine Daten gehören dir.</p>
+        </div>
+        <div class="f-item">
+            <i class="fas fa-paint-brush"></i>
+            <h3>GX Design</h3>
+            <p>Einzigartiger Dark-Mode mit Neon-Akzenten für Gamer und Devs.</p>
         </div>
     </div>
-    <div id="legalModal" class="modal">
-        <div class="modal-content">
-            <h2 style="color: var(--neon)">Impressum</h2>
-            <p>Kein Impressum nötig, da die Benutzung dieses Browsers zu 100% kostenlos ist.</p>
-            <p>Datenschutz: 100% Lokal.</p>
-            <button class="btn" onclick="closeModal('legalModal')">Verstanden</button>
-        </div>
-    </div>
-    <div id="downloadModal" class="modal">
-        <div class="modal-content" style="text-align:center">
-            <h2 style="color: var(--neon)">Download</h2>
-            <a href="dist/Neon Browser Setup 1.2.0.exe" class="btn" style="width:80%">Windows Installer (.exe)</a>
-            <button class="btn" onclick="closeModal('downloadModal')" style="border-color:#444; color:#444">Abbrechen</button>
-        </div>
-    </div>
+
     <footer>
-        <span onclick="openModal('legalModal')" style="cursor:pointer">Impressum & Datenschutz</span><br><br>
-        &copy; 2026 NEON GX | Created for Hyper-Performance
+        &copy; 2026 NEON Ecosystem. Alle Rechte vorbehalten.<br>
+        Entwickelt für die Zukunft des Internets.
     </footer>
-    <script>
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    </script>
+
 </body>
 </html>
