@@ -4,139 +4,78 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Animationen */
-        @keyframes blinkGreen { 
-            0% { color: #555; text-shadow: none; } 
-            50% { color: #00ff88; text-shadow: 0 0 15px #00ff88; transform: scale(1.1); } 
-            100% { color: #555; text-shadow: none; } 
-        }
-
-        body { margin: 0; background: #0b0e14; color: white; font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        :root { --bg: #0b0e14; --side: #0f111a; --acc: #00f2ff; --text: #fff; }
+        body.light-mode { --bg: #f0f0f0; --side: #ddd; --acc: #0078d4; --text: #000; }
         
-        /* Sidebar */
-        .sidebar { width: 65px; background: #0f111a; display: flex; flex-direction: column; align-items: center; padding-top: 20px; border-right: 1px solid #1a1d26; -webkit-app-region: drag; z-index: 10; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        
+        .sidebar { width: 65px; background: var(--side); display: flex; flex-direction: column; align-items: center; padding: 20px 0; border-right: 1px solid rgba(255,255,255,0.05); -webkit-app-region: drag; }
         .side-icon { font-size: 20px; color: #4a4d5e; margin-bottom: 25px; cursor: pointer; transition: 0.3s; -webkit-app-region: no-drag; }
-        .side-icon:hover { color: #00f2ff; transform: scale(1.2); }
-        .ver-tag { margin-top: auto; margin-bottom: 20px; color: #00f2ff; font-weight: bold; font-size: 10px; opacity: 0.5; }
-
-        /* Main Window */
-        .main { flex-grow: 1; display: flex; flex-direction: column; background: #0b0e14; }
+        .side-icon:hover, .side-icon.active { color: var(--acc); transform: scale(1.1); }
         
-        /* Navbar */
-        .navbar { height: 45px; background: #0b0e14; display: flex; align-items: center; padding: 0 15px; border-bottom: 1px solid #1a1d26; -webkit-app-region: drag; }
-        .url-bar { flex-grow: 1; background: #1c212b; border-radius: 20px; padding: 5px 15px; display: flex; align-items: center; margin: 0 15px; -webkit-app-region: no-drag; border: 1px solid transparent; }
-        .url-bar:focus-within { border-color: #00f2ff; }
-        .url-bar input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 13px; }
+        .spacer { flex-grow: 1; } /* Schiebt alles danach nach unten */
+
+        .main { flex-grow: 1; display: flex; flex-direction: column; }
+        .navbar { height: 45px; display: flex; align-items: center; padding: 0 15px; -webkit-app-region: drag; }
+        .url-bar { flex-grow: 1; background: rgba(255,255,255,0.05); border-radius: 20px; padding: 5px 15px; margin: 0 15px; -webkit-app-region: no-drag; display: flex; }
+        .url-bar input { background: transparent; border: none; color: var(--text); width: 100%; outline: none; }
         
-        .win-controls { display: flex; gap: 15px; -webkit-app-region: no-drag; }
-        .win-btn { color: #444; cursor: pointer; transition: 0.2s; font-size: 14px; }
-        .win-btn:hover { color: white; }
-        .win-btn.close:hover { color: #ff4444; }
-
-        /* Update Icon */
-        #update-icon { display: none; color: #00ff88; animation: blinkGreen 2s infinite; cursor: pointer; -webkit-app-region: no-drag; margin-right: 10px; font-size: 18px; }
-
-        /* Content Area */
         webview { flex-grow: 1; background: white; }
 
-        /* Update Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-        .modal-box { background: #151921; width: 400px; padding: 30px; border-radius: 15px; border: 1px solid #333; text-align: center; }
-        .btn-green { background: #00ff88; color: black; border: none; padding: 12px 25px; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 15px; }
-        .btn-green:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0,255,136,0.3); }
-        
-        .progress-container { width: 100%; background: #000; height: 10px; border-radius: 5px; margin-top: 20px; overflow: hidden; display: none; }
-        .progress-bar { width: 0%; height: 100%; background: #00ff88; transition: 0.1s; }
+        #update-bar { display: none; position: absolute; top: 50px; right: 20px; background: #151921; padding: 15px; border-radius: 8px; border: 1px solid var(--acc); z-index: 100; }
     </style>
 </head>
-<body>
+<body id="body">
 
     <div class="sidebar">
-        <div class="side-icon" onclick="location.reload()" title="Home"><i class="fas fa-home"></i></div>
-        <div class="side-icon" onclick="ipcRenderer.send('nav-to', 'settings')" title="Einstellungen"><i class="fas fa-cog"></i></div>
-        <div class="ver-tag">GX</div>
+        <div class="side-icon" onclick="wv.reload()"><i class="fas fa-home"></i></div>
+        <div class="side-icon" onclick="ipcRenderer.send('nav-to', 'ki')"><i class="fas fa-robot"></i></div>
+        
+        <div class="spacer"></div> <div id="upd-icon" class="side-icon" style="display:none; color:#00ff88" onclick="showUpdate()"><i class="fas fa-arrow-alt-circle-up"></i></div>
+        <div class="side-icon" onclick="ipcRenderer.send('nav-to', 'settings')"><i class="fas fa-cog"></i></div>
     </div>
 
     <div class="main">
         <div class="navbar">
-            <i class="fas fa-redo win-btn" onclick="wv.reload()" style="margin-right: 10px;"></i>
-            <div class="url-bar">
-                <input type="text" id="ui" placeholder="Suche oder Webadresse eingeben...">
-            </div>
-            
-            <i class="fas fa-arrow-alt-circle-down" id="update-icon" title="Update verfügbar!"></i>
-
-            <div class="win-controls">
-                <i class="fas fa-minus win-btn" onclick="ipcRenderer.send('window-control', 'minimize')"></i>
-                <i class="fas fa-times win-btn close" onclick="ipcRenderer.send('window-control', 'close')"></i>
+            <div class="url-bar"><input type="text" id="ui" placeholder="Suchen oder URL eingeben..."></div>
+            <div style="-webkit-app-region: no-drag;">
+                <i class="fas fa-minus" onclick="ipcRenderer.send('window-control', 'minimize')" style="cursor:pointer; margin-right:15px"></i>
+                <i class="fas fa-times" onclick="ipcRenderer.send('window-control', 'close')" style="cursor:pointer; color:#ff4444"></i>
             </div>
         </div>
-        
         <webview id="wv" src="https://www.google.com"></webview>
     </div>
 
-    <div id="u-modal" class="modal">
-        <div class="modal-box">
-            <h2 style="color:#00ff88; margin-top:0;">Update verfügbar!</h2>
-            <p style="color:#ccc;">Version 1.2.1 von NEON GX ist bereit.</p>
-            <button class="btn-green" id="install-btn" onclick="startUpdate()">JETZT INSTALLIEREN</button>
-            <div class="progress-container" id="p-cont">
-                <div class="progress-bar" id="p-bar"></div>
-            </div>
-            <p id="p-status" style="font-size:12px; color:#666; margin-top:10px;"></p>
-        </div>
+    <div id="update-bar">
+        <small id="upd-text">Update wird geladen...</small>
+        <button id="btn-re" style="display:none; margin-top:10px" onclick="ipcRenderer.send('restart_app')">Neustarten</button>
     </div>
 
     <script>
-        const { ipcRenderer, shell } = require('electron');
+        const { ipcRenderer } = require('electron');
         const wv = document.getElementById('wv');
         const ui = document.getElementById('ui');
 
-        // Update Erkennung
-        ipcRenderer.on('update-available', () => {
-            document.getElementById('update-icon').style.display = 'block';
-        });
-
-        document.getElementById('update-icon').onclick = () => {
-            document.getElementById('u-modal').style.display = 'flex';
-        };
-
-        function startUpdate() {
-            document.getElementById('install-btn').style.display = 'none';
-            document.getElementById('p-cont').style.display = 'block';
-            let progress = 0;
-            
-            const interval = setInterval(() => {
-                progress += Math.random() * 4;
-                document.getElementById('p-bar').style.width = progress + '%';
-                document.getElementById('p-status').innerText = `Lade Daten: ${Math.floor(progress)}%`;
-
-                if(progress >= 100) {
-                    clearInterval(interval);
-                    // Link zu deiner EXE auf GitHub
-                    shell.openExternal('https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/download/v1.1.5/NEON.GX.Setup.1.2.1.exe');
-                    setTimeout(() => { ipcRenderer.send('window-control', 'close'); }, 1500);
-                }
-            }, 100);
-        }
-
-        // Navigation
+        // Theme & Search Engine laden
+        if(localStorage.getItem('theme') === 'light') document.getElementById('body').classList.add('light-mode');
+        
         ui.addEventListener('keydown', (e) => {
             if(e.key === 'Enter') {
                 let v = ui.value;
-                if(!v.includes('.') || v.includes(' ')) {
-                    wv.loadURL('https://google.com/search?q=' + v);
-                } else {
-                    if(!v.startsWith('http')) v = 'https://' + v;
-                    wv.loadURL(v);
-                }
+                let engine = localStorage.getItem('engine') || 'https://google.com/search?q=';
+                if(!v.includes('.') || v.includes(' ')) wv.loadURL(engine + encodeURIComponent(v));
+                else { if(!v.startsWith('http')) v = 'https://' + v; wv.loadURL(v); }
             }
         });
 
-        // Update URL Bar wenn im Webview navigiert wird
-        wv.addEventListener('did-navigate', (e) => {
-            ui.value = e.url;
+        // Updater
+        ipcRenderer.on('update_available', () => document.getElementById('upd-icon').style.display = 'block');
+        ipcRenderer.on('update_downloaded', () => {
+            document.getElementById('update-bar').style.display = 'block';
+            document.getElementById('upd-text').innerText = "Update fertig!";
+            document.getElementById('btn-re').style.display = 'block';
         });
+        wv.addEventListener('did-navigate', (e) => ui.value = e.url);
     </script>
 </body>
 </html>

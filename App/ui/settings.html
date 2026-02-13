@@ -3,40 +3,41 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: #0b0e14; color: white; font-family: sans-serif; padding: 50px; }
-        .container { max-width: 600px; margin: auto; background: #0f111a; padding: 30px; border-radius: 15px; border: 1px solid #1a1d26; }
-        h1 { color: #00f2ff; margin-top: 0; }
-        .row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #1a1d26; align-items: center; }
-        .back-btn { color: #555; cursor: pointer; margin-bottom: 20px; display: inline-block; }
-        .back-btn:hover { color: #00f2ff; }
-        input[type="text"] { background: #1c212b; border: 1px solid #333; color: white; padding: 5px 10px; border-radius: 5px; }
+        body { background: #0b0e14; color: white; font-family: 'Segoe UI', sans-serif; padding: 50px; }
+        .card { background: #0f111a; padding: 25px; border-radius: 15px; border: 1px solid #1a1d26; max-width: 500px; margin: auto; }
+        h2 { color: #00f2ff; }
+        select, button { width: 100%; padding: 12px; margin-top: 10px; background: #1c212b; color: white; border: 1px solid #333; border-radius: 8px; }
+        .save { background: #00f2ff; color: black; font-weight: bold; cursor: pointer; border: none; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Zurück</div>
-        <h1>NEON GX Settings</h1>
-        <div class="row">
-            <span>Standard Suchmaschine</span>
-            <select style="background:#1c212b; color:white; border:none; padding:5px;">
-                <option>Google</option>
-                <option>DuckDuckGo</option>
-                <option>Bing</option>
-            </select>
-        </div>
-        <div class="row">
-            <span>Startseite</span>
-            <input type="text" value="https://google.com">
-        </div>
-        <div class="row">
-            <span>Hardware-Beschleunigung</span>
-            <input type="checkbox" checked>
-        </div>
-        <div style="margin-top:20px; font-size:11px; color:#333;">NEON GX Version 1.2.0-stable</div>
+    <div class="card">
+        <div onclick="ipcRenderer.send('nav-to', 'tabs')" style="cursor:pointer; opacity:0.5"><i class="fas fa-arrow-left"></i> Zurück</div>
+        <h2>Einstellungen</h2>
+        
+        <label>Suchmaschine</label>
+        <select id="engine">
+            <option value="https://google.com/search?q=">Google</option>
+            <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+            <option value="https://de.wikipedia.org/wiki/">Wikipedia</option>
+        </select>
+
+        <label style="display:block; margin-top:20px">Design</label>
+        <select id="theme">
+            <option value="dark">Neon Dark</option>
+            <option value="light">Bright Mode</option>
+        </select>
+
+        <button class="save" onclick="save()">SPEICHERN & NEUSTART</button>
     </div>
+
     <script>
         const { ipcRenderer } = require('electron');
-        function goBack() { ipcRenderer.send('nav-to', 'tabs'); }
+        function save() {
+            localStorage.setItem('engine', document.getElementById('engine').value);
+            localStorage.setItem('theme', document.getElementById('theme').value);
+            ipcRenderer.send('nav-to', 'tabs');
+        }
     </script>
 </body>
 </html>
