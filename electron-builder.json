@@ -1,0 +1,8 @@
+﻿{
+  "appId": "com.neon.gx",
+  "productName": "NEON GX",
+  "directories": { "output": "dist", "buildResources": "App/ui" },
+  "win": { "target": "nsis", "icon": "App/ui/icon.ico" },
+  "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true },
+  "publish": [{ "provider": "github", "owner": "joelz", "repo": "Browser-main" }]
+}

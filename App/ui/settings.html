@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="de"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    :root { --bg: #0d1117; --card: #161b22; --text: white; --accent: #58a6ff; }
+    body.light { --bg: #f0f2f5; --card: #ffffff; --text: #1c1e21; --accent: #007bff; }
+    body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding: 40px; transition: 0.3s; height: 100vh; box-sizing: border-box; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .card { background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid #30363d; animation: slideUp 0.5s ease; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+    .btn:hover { opacity: 0.8; transform: scale(1.05); }
+    .stat-val { font-size: 24px; font-weight: bold; color: var(--accent); }
+    .close-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+</style></head>
+<body id="setBody">
+    <div class="close-bar">
+        <h2>NEON Settings <small style="font-size:12px; opacity:0.5">v1.0.0</small></h2>
+        <i class="fas fa-xmark" onclick="window.close()" style="cursor:pointer; font-size:24px; color:#f85149"></i>
+    </div>
+    <div class="grid">
+        <div class="card">
+            <h3>🎨 Appearance</h3>
+            <p>Wähle dein Design:</p>
+            <button class="btn" onclick="setTheme('dark')">Dark Mode</button>
+            <button class="btn" onclick="setTheme('light')" style="background:#8b949e">Light Mode</button>
+        </div>
+        <div class="card">
+            <h3>📊 Live Performance</h3>
+            <div style="margin-bottom:15px;">
+                <div style="font-size:12px; opacity:0.6;">MEMORY USAGE</div>
+                <div class="stat-val" id="memUsage">...</div>
+            </div>
+            <div>
+                <div style="font-size:12px; opacity:0.6;">SYSTEM STATUS</div>
+                <div class="stat-val" style="color:#238636">OPTIMAL</div>
+            </div>
+        </div>
+        <div class="card" style="grid-column: span 2;">
+            <h3>💾 Lokale Daten</h3>
+            <p>Deine History und Lesezeichen werden sicher auf diesem PC gespeichert.</p>
+            <button class="btn" onclick="clearData()" style="background:#f85149">History löschen</button>
+        </div>
+    </div>
+    <script>
+        function setTheme(mode) {
+            localStorage.setItem('theme', mode);
+            location.reload(); // Refresh um Theme anzuwenden
+        }
+        if(localStorage.getItem('theme') === 'light') document.getElementById('setBody').classList.add('light');
+
+        function clearData() {
+            localStorage.removeItem('browser_history');
+            alert('Lokale Daten gelöscht!');
+        }
+
+        setInterval(() => {
+            const mem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
+            document.getElementById('memUsage').innerText = mem + ' MB';
+        }, 1000);
+    </script>
+</body></html>
