@@ -1,8 +1,9 @@
 {
   "name": "neon-gx",
-  "version": "1.2.3",
+  "version": "1.1.2",
   "description": "NEON GX - Next Gen Browser",
   "main": "App/src/main.js",
+  "author": "Joel Zimmermann",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder --win",
@@ -19,12 +20,22 @@
   },
   "build": {
     "appId": "com.neon.gx",
-    "win": {
-      "target": "nsis",
-      "icon": "App/ui/icon.ico"
-    },
+    "productName": "Neon GX",
     "directories": {
-      "output": "dist"
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "artifactName": "NEON_GX_Setup_${version}.exe"
     }
   }
 }
