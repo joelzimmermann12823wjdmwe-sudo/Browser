@@ -1,12 +1,12 @@
 {
   "name": "neon-gx",
-  "version": "1.1.2",
+  "version": "1.2.3",
   "description": "NEON GX - Next Gen Browser",
   "main": "App/src/main.js",
   "author": "Joel Zimmermann",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --win",
+    "dist": "electron-builder --win --publish never",
     "clean": "rimraf dist"
   },
   "dependencies": {
@@ -25,11 +25,21 @@
       "output": "dist",
       "buildResources": "assets"
     },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "joelzimmermann12823wjdmwe-sudo",
+        "repo": "Browser"
+      }
+    ],
     "win": {
       "target": [
         "nsis"
       ],
-      "icon": null
+      "icon": null,
+      "publish": [
+        "github"
+      ]
     },
     "nsis": {
       "oneClick": false,
