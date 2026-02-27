@@ -2,70 +2,39 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEON GX | Next Gen Browsing</title>
+    <title>NEON GX | Download</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --bg: #0d1117; --card: #161b22; --accent: #00d2ff; --text: #ffffff; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        :root { --bg: #05070a; --card: #0d1117; --accent: #00d2ff; --text: #ffffff; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; text-align: center; }
+        nav { padding: 25px; border-bottom: 1px solid #1f2328; display: flex; justify-content: center; gap: 50px; }
+        nav a { color: #8b949e; text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Navbar */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; background: rgba(13, 17, 23, 0.95); position: fixed; width: 80%; z-index: 1000; border-bottom: 1px solid #30363d; }
-        .logo { font-size: 24px; font-weight: bold; color: var(--accent); letter-spacing: 2px; }
+        .hero { padding: 100px 20px; }
+        h1 { font-size: 65px; margin: 0; color: var(--accent); text-shadow: 0 0 20px rgba(0, 210, 255, 0.4); }
+        .status-grid { display: flex; justify-content: center; gap: 25px; margin: 50px 0; }
+        .status-item { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #30363d; width: 200px; }
+        .dot { width: 10px; height: 10px; background: #238636; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 8px #238636; }
         
-        /* Hero Section */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #1a2332 0%, #0d1117 100%); padding: 0 20px; }
-        .hero h1 { font-size: 4rem; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
-        .hero p { font-size: 1.5rem; color: #8b949e; margin-bottom: 30px; }
-        
-        /* Download Button */
-        .btn-download { background: var(--accent); color: #000; padding: 18px 40px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; text-decoration: none; transition: 0.3s; box-shadow: 0 0 15px var(--accent); }
-        .btn-download:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--accent); }
-        
-        /* Ad/Feature Section */
-        .features { padding: 100px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .feature-card { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #30363d; text-align: center; transition: 0.3s; }
-        .feature-card:hover { border-color: var(--accent); transform: translateY(-10px); }
-        .feature-card i { font-size: 3rem; color: var(--accent); margin-bottom: 20px; }
-        
-        footer { text-align: center; padding: 40px; color: #8b949e; border-top: 1px solid #30363d; }
+        .download-btn { background: var(--accent); color: black; padding: 20px 60px; border-radius: 50px; font-weight: bold; text-decoration: none; font-size: 20px; display: inline-block; transition: 0.3s; box-shadow: 0 0 25px rgba(0, 210, 255, 0.3); }
+        .download-btn:hover { transform: translateY(-5px); box-shadow: 0 0 45px var(--accent); }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="logo">NEON GX</div>
-        <div>v1.2.3</div>
-    </nav>
+    <nav><a href="#">Features</a><a href="#">Security</a><a href="#">Changelog</a></nav>
+    <div class="hero">
+        <h1>NEON GX</h1>
+        <p style="color:#8b949e; font-size:20px;">The Next Generation of Browsing.</p>
+        
+        <div class="status-grid">
+            <div class="status-item"><h4><div class="dot"></div> Google Core</h4><p style="font-size:12px; color:#8b949e;">Connected</p></div>
+            <div class="status-item" style="border-color:var(--accent);"><h4><div class="dot"></div> NEON AI</h4><p style="font-size:12px; color:#8b949e;">Operational</p></div>
+            <div class="status-item"><h4><div class="dot"></div> Updates</h4><p style="font-size:12px; color:#8b949e;">v1.2.3 Ready</p></div>
+        </div>
 
-    <section class="hero">
-        <h1>Faster than Light.</h1>
-        <p>Erlebe den stabilsten Browser für Power-User.</p>
-        <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/download/v1.2.3/NEON.GX.Setup.1.0.0.exe" class="btn-download">
-            <i class="fas fa-download"></i> JETZT HERUNTERLADEN
+        <a href="https://github.com/joelzimmermann12823wjdmwe-sudo/Browser/releases/latest" class="download-btn">
+            <i class="fas fa-download"></i> SETUP.EXE HERUNTERLADEN
         </a>
-        <p style="font-size: 0.9rem; margin-top: 15px;">Kostenlos für Windows x64</p>
-    </section>
-
-    <section class="features">
-        <div class="feature-card">
-            <i class="fas fa-bolt"></i>
-            <h3>High Performance</h3>
-            <p>Optimierte Chromium-Engine für maximale Geschwindigkeit ohne Verzögerung.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-shield-halved"></i>
-            <h3>Privatsphäre</h3>
-            <p>Deine Daten gehören dir. Lokale Speicherung von History und Lesezeichen.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-palette"></i>
-            <h3>Custom Design</h3>
-            <p>Wähle zwischen Neon-Dark und Bright Mode für dein perfektes Erlebnis.</p>
-        </div>
-    </section>
-
-    <footer>
-        &copy; 2026 NEON Ecosystem. Handgefertigt von Joel Z.
-    </footer>
+    </div>
 </body>
 </html>

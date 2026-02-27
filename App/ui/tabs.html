@@ -1,50 +1,49 @@
 ﻿<!DOCTYPE html>
-<html lang="de"><head><meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-    :root { --bg: #0d1117; --sidebar: #090c10; --text: white; --border: #30363d; --accent: #58a6ff; }
-    body.light { --bg: #f0f2f5; --sidebar: #ffffff; --text: #1c1e21; --border: #ddd; --accent: #007bff; }
-    body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; transition: 0.3s; }
-    .sidebar { width: 70px; background: var(--sidebar); display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 20px 0; border-right: 1px solid var(--border); -webkit-app-region: drag; }
-    .sidebar i { font-size: 20px; color: #8b949e; cursor: pointer; -webkit-app-region: no-drag; transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
-    .sidebar i:hover { color: var(--accent); transform: scale(1.1); }
-    .main-content { flex: 1; display: flex; flex-direction: column; }
-    .top-bar { height: 80px; background: var(--bg); display: flex; align-items: center; padding: 0 30px; border-bottom: 1px solid var(--border); -webkit-app-region: drag; }
-    .search-box { flex: 1; display: flex; justify-content: center; -webkit-app-region: no-drag; }
-    input { width: 60%; background: #161b22; border: 1px solid var(--border); padding: 12px 20px; border-radius: 25px; color: white; outline: none; transition: 0.3s; }
-    body.light input { background: white; color: black; }
-    .win-ctrl { display: flex; gap: 20px; -webkit-app-region: no-drag; }
-</style></head>
-<body id="mainBody">
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg: #05070a; --side: #090c10; --accent: #00d2ff; --txt: #ffffff; }
+        body { margin: 0; background: var(--bg); color: var(--txt); font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        
+        .sidebar { width: 70px; background: var(--side); display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 20px 0; border-right: 1px solid #1f2328; -webkit-app-region: drag; }
+        .sidebar i { font-size: 22px; color: #8b949e; cursor: pointer; transition: 0.3s; -webkit-app-region: no-drag; }
+        .sidebar i:hover { color: var(--accent); transform: scale(1.15); text-shadow: 0 0 10px var(--accent); }
+        
+        .main-content { flex: 1; display: flex; flex-direction: column; }
+        .top-bar { height: 80px; display: flex; align-items: center; padding: 0 30px; border-bottom: 1px solid #1f2328; -webkit-app-region: drag; }
+        
+        .nav-input { flex: 1; margin: 0 40px; background: #0d1117; border: 1px solid #30363d; padding: 12px 25px; border-radius: 30px; color: white; -webkit-app-region: no-drag; outline: none; transition: 0.3s; }
+        .nav-input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 210, 255, 0.15); }
+        
+        .win-btn { cursor: pointer; transition: 0.2s; -webkit-app-region: no-drag; }
+        .win-btn:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
     <div class="sidebar">
-        <div style="display:flex; flex-direction:column; gap:30px;">
-            <i class="fas fa-home" onclick="window.electronAPI.loadUrl('https://google.com')"></i>
-            <i class="fas fa-history" onclick="alert('History wird lokal gespeichert!')"></i>
+        <div style="display:flex; flex-direction:column; gap:40px;">
+            <i class="fas fa-house" onclick="window.electronAPI.loadUrl('https://google.com')"></i>
+            <i class="fas fa-compass"></i>
+            <i class="fas fa-clock-rotate-left"></i>
         </div>
-        <i class="fas fa-sliders" onclick="window.electronAPI.openSettings()"></i>
+        <i class="fas fa-gear" onclick="window.electronAPI.openSettings()"></i>
     </div>
     <div class="main-content">
         <div class="top-bar">
-            <div style="font-weight: bold; color: var(--accent); font-size: 18px;">NEON GX</div>
-            <div class="search-box"><input type="text" id="urlInput" placeholder="Suchen..."></div>
-            <div class="win-ctrl">
-                <i class="fas fa-minus" onclick="window.electronAPI.windowControl('minimize')" style="cursor:pointer"></i>
-                <i class="fas fa-xmark" onclick="window.electronAPI.windowControl('close')" style="cursor:pointer; color:#f85149"></i>
+            <div style="color:var(--accent); font-weight:bold; font-size:18px; letter-spacing:1px;">NEON GX</div>
+            <input type="text" class="nav-input" id="urlInput" placeholder="Suchen oder URL eingeben...">
+            <div style="display:flex; gap:25px; font-size:18px;">
+                <i class="fas fa-minus win-btn" onclick="window.electronAPI.windowControl('minimize')"></i>
+                <i class="fas fa-xmark win-btn" style="color:#f85149" onclick="window.electronAPI.windowControl('close')"></i>
             </div>
         </div>
     </div>
     <script>
         const input = document.getElementById('urlInput');
-        // Theme laden
-        if(localStorage.getItem('theme') === 'light') document.getElementById('mainBody').classList.add('light');
-        
-        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') window.electronAPI.loadUrl(input.value); });
-        
-        // History lokal speichern
-        window.electronAPI.onUrlChanged((url) => {
-            let history = JSON.parse(localStorage.getItem('browser_history') || '[]');
-            history.push({url: url, time: new Date().toLocaleString()});
-            localStorage.setItem('browser_history', JSON.stringify(history.slice(-50))); // Letzte 50
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') window.electronAPI.loadUrl(input.value);
         });
     </script>
-</body></html>
+</body>
+</html>

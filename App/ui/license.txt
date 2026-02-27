@@ -1,1 +1,14 @@
-﻿Lizenztext für NEON GX 1.2.3
+﻿License for Neon Browser
+© 2026 Neon Browser
+
+This agreement governs the use of the software "Neon Browser." By installing or using the software, you agree to the following terms:
+
+Right to Use: The user is granted a non-exclusive, free-of-charge right to use Neon Browser for private or business purposes.
+
+Restrictions: You may not decompile, reverse engineer, or modify the software. Distributing parts of this software within other products without explicit permission is prohibited.
+
+Disclaimer of Warranty: The software is provided "as-is" without any warranties. The developer shall not be liable for any damages arising out of the use or inability to use the software.
+
+Privacy: We value your privacy. Neon Browser does not collect personal data without your explicit consent.
+
+Contact Us: dev-jojo@proton.me
